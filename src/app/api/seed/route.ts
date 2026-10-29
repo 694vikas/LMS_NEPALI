@@ -405,7 +405,7 @@ export async function POST() {
         className: "Class 10 (SEE)",
         subject: "Compulsory Mathematics",
         fileType: "PDF",
-        fileUrl: "https://moecdc.gov.np/storage/files/10-Math-Model-2081.pdf",
+        fileUrl: "/uploads/materials/see-math-model-2081.pdf",
         uploadedBy: "Ramesh Bhattarai (HOD Math)",
         downloadsCount: 142,
       },

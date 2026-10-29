@@ -25,6 +25,7 @@ import {
   Download,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { FileUploadInput } from "@/components/FileUploadInput";
 
 interface StudentItem {
   _id: string;
@@ -646,19 +647,19 @@ function TeacherDashboardContent() {
                 </div>
               </div>
 
-              <div>
-                <label className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">
-                  File Download URL / Cloud Link *
-                </label>
-                <input
-                  required
-                  type="url"
-                  placeholder="https://..."
-                  value={uploadForm.fileUrl}
-                  onChange={(e) => setUploadForm({ ...uploadForm, fileUrl: e.target.value })}
-                  className="w-full p-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 font-mono"
-                />
-              </div>
+              {/* PDF & File Upload */}
+              <FileUploadInput
+                label="Attach PDF / Question Paper / Note File"
+                currentUrl={uploadForm.fileUrl}
+                onFileUploaded={(url, fileType, name) => {
+                  setUploadForm((prev) => ({
+                    ...prev,
+                    fileUrl: url,
+                    fileType: fileType,
+                    title: prev.title || name.replace(/\.[^/.]+$/, ""),
+                  }));
+                }}
+              />
 
               <div>
                 <label className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">
@@ -710,3 +711,4 @@ export default function TeacherDashboardPage() {
     </Suspense>
   );
 }
+

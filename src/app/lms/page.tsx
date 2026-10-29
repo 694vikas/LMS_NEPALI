@@ -19,6 +19,7 @@ import {
   Tag,
 } from "lucide-react";
 import { CLASSES } from "@/lib/constants";
+import { FileUploadInput } from "@/components/FileUploadInput";
 
 interface NoticeItem {
   _id: string;
@@ -658,21 +659,19 @@ function LMSContent() {
                 </div>
               </div>
 
-              <div>
-                <label className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">
-                  File / Download URL *
-                </label>
-                <input
-                  required
-                  type="url"
-                  placeholder="https://..."
-                  value={materialForm.fileUrl}
-                  onChange={(e) =>
-                    setMaterialForm({ ...materialForm, fileUrl: e.target.value })
-                  }
-                  className="w-full p-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 font-mono"
-                />
-              </div>
+              {/* File / PDF Upload */}
+              <FileUploadInput
+                label="Attach PDF / Question Paper / Note File"
+                currentUrl={materialForm.fileUrl}
+                onFileUploaded={(url, fileType, name) => {
+                  setMaterialForm((prev) => ({
+                    ...prev,
+                    fileUrl: url,
+                    fileType: fileType,
+                    title: prev.title || name.replace(/\.[^/.]+$/, ""),
+                  }));
+                }}
+              />
 
               <div>
                 <label className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">

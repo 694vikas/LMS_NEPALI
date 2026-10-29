@@ -9,3 +9,4 @@ export async function POST() {
   response.cookies.delete("lms_user");
   return response;
 }
+
