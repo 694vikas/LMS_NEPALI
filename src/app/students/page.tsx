@@ -15,6 +15,7 @@ import {
   CreditCard,
   X,
   GraduationCap,
+  ClipboardCheck,
 } from "lucide-react";
 import { CLASSES, SECTIONS } from "@/lib/constants";
 
@@ -447,13 +448,20 @@ function StudentsContent() {
               </div>
             </div>
 
-            <div className="mt-6 flex justify-end gap-2">
+            <div className="mt-6 flex flex-wrap justify-end gap-2">
               <button
                 onClick={() => setActiveStudent(null)}
                 className="px-4 py-2 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
               >
                 Close
               </button>
+              <a
+                href={`/attendance?className=${encodeURIComponent(activeStudent.className)}&section=${encodeURIComponent(activeStudent.section)}`}
+                className="px-3 py-2 text-xs font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg inline-flex items-center gap-1.5 border border-slate-200 dark:border-slate-700 transition-colors"
+              >
+                <ClipboardCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                <span>Mark Attendance</span>
+              </a>
               <a
                 href={`/fees?search=${encodeURIComponent(activeStudent.fullName)}`}
                 className="px-4 py-2 text-xs font-medium bg-rose-600 hover:bg-rose-700 text-white rounded-lg inline-flex items-center gap-1.5"

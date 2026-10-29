@@ -48,3 +48,4 @@ AttendanceSchema.index({ dateBS: 1, className: 1, section: 1 }, { unique: true }
 export const Attendance: Model<IAttendance> =
   mongoose.models.Attendance ||
   mongoose.model<IAttendance>("Attendance", AttendanceSchema);
+

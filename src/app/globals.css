@@ -20,6 +20,10 @@ body {
 }
 
 @media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
   body * {
     visibility: hidden;
   }
@@ -31,5 +35,11 @@ body {
     left: 0;
     top: 0;
     width: 100%;
+    margin: 0;
+    padding: 24px;
+    background: white !important;
+    color: black !important;
+    border: 1px solid #94a3b8 !important;
+    box-shadow: none !important;
   }
 }

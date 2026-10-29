@@ -207,9 +207,28 @@ function AttendanceContent() {
 
         {/* Nepali Date BS */}
         <div>
-          <label className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">
-            Date (मिति B.S.)
-          </label>
+          <div className="flex items-center justify-between mb-1">
+            <label className="font-semibold text-slate-700 dark:text-slate-300 block">
+              Date (मिति B.S.)
+            </label>
+            <div className="flex gap-1 text-[10px]">
+              <button
+                type="button"
+                onClick={() => setDateBS("2081-07-15")}
+                className="text-rose-600 dark:text-rose-400 hover:underline"
+              >
+                Today
+              </button>
+              <span>•</span>
+              <button
+                type="button"
+                onClick={() => setDateBS("2081-07-14")}
+                className="text-slate-500 hover:underline"
+              >
+                Yesterday
+              </button>
+            </div>
+          </div>
           <div className="relative">
             <Calendar className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5" />
             <input
@@ -313,7 +332,18 @@ function AttendanceContent() {
                 </tr>
               ) : (
                 records.map((r, idx) => (
-                  <tr key={r.studentId} className="hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors">
+                  <tr
+                    key={r.studentId}
+                    className={`transition-colors ${
+                      r.status === "Absent"
+                        ? "bg-rose-50/60 dark:bg-rose-950/20 hover:bg-rose-50 dark:hover:bg-rose-950/30"
+                        : r.status === "Leave"
+                        ? "bg-blue-50/60 dark:bg-blue-950/20 hover:bg-blue-50 dark:hover:bg-blue-950/30"
+                        : r.status === "Late"
+                        ? "bg-amber-50/60 dark:bg-amber-950/20 hover:bg-amber-50 dark:hover:bg-amber-950/30"
+                        : "hover:bg-slate-50/80 dark:hover:bg-slate-800/40"
+                    }`}
+                  >
                     <td className="py-3 px-4 font-bold text-slate-800 dark:text-slate-200">
                       <span className="w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center">
                         {r.rollNo}
@@ -417,3 +447,4 @@ export default function AttendancePage() {
     </Suspense>
   );
 }
+
