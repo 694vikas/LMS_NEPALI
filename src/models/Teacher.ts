@@ -4,6 +4,7 @@ export interface ITeacher extends Document {
   employeeId: string;
   fullName: string;
   email: string;
+  password?: string;
   phone: string;
   subjects: string[];
   isClassTeacher: boolean;
@@ -21,6 +22,7 @@ const TeacherSchema = new Schema<ITeacher>(
     employeeId: { type: String, required: true, unique: true },
     fullName: { type: String, required: true, trim: true },
     email: { type: String, required: true, trim: true, lowercase: true },
+    password: { type: String, default: "teacher123" },
     phone: { type: String, required: true, trim: true },
     subjects: [{ type: String }],
     isClassTeacher: { type: Boolean, default: false },
@@ -39,4 +41,3 @@ const TeacherSchema = new Schema<ITeacher>(
 
 export const Teacher: Model<ITeacher> =
   mongoose.models.Teacher || mongoose.model<ITeacher>("Teacher", TeacherSchema);
-

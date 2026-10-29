@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import {
   Sparkles,
   Calendar,
@@ -10,13 +11,18 @@ import {
   Moon,
   PanelLeftClose,
   PanelLeftOpen,
+  UserCheck,
+  Shield,
+  LogOut,
 } from "lucide-react";
 import { useUI } from "@/context/UIContext";
+import { useAuth } from "@/context/AuthContext";
 
 export function Navbar() {
   const [seeding, setSeeding] = useState(false);
   const [seedSuccess, setSeedSuccess] = useState(false);
   const { theme, toggleTheme, isCollapsed, toggleSidebar } = useUI();
+  const { user } = useAuth();
 
   const handleSeed = async () => {
     if (!confirm("Populate database with Nepali school sample students, teachers, and fees?")) {
@@ -41,6 +47,16 @@ export function Navbar() {
       setSeeding(false);
     }
   };
+
+  const isTeacher = user?.role === "TEACHER";
+  const userInitials = user?.fullName
+    ? user.fullName
+        .split(" ")
+        .map((n) => n[0])
+        .slice(0, 2)
+        .join("")
+        .toUpperCase()
+    : "AD";
 
   return (
     <header className="h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-4 md:px-6 flex items-center justify-between sticky top-0 z-30 shadow-sm transition-colors duration-200">
@@ -120,16 +136,34 @@ export function Navbar() {
           )}
         </button>
 
-        {/* User Profile Badge */}
-        <div className="flex items-center space-x-2 pl-2 border-l border-slate-200 dark:border-slate-700">
-          <div className="w-8 h-8 rounded-full bg-rose-700 dark:bg-rose-600 text-white flex items-center justify-center font-bold text-xs shadow">
-            AD
+        {/* User Profile Badge / Switcher */}
+        <Link
+          href="/login"
+          className="flex items-center space-x-2 pl-2 border-l border-slate-200 dark:border-slate-700 hover:opacity-90 transition-opacity"
+          title="Click to Switch User / Sign in"
+        >
+          <div
+            className={`w-8 h-8 rounded-full text-white flex items-center justify-center font-bold text-xs shadow ${
+              isTeacher
+                ? "bg-emerald-600 dark:bg-emerald-500"
+                : "bg-rose-700 dark:bg-rose-600"
+            }`}
+          >
+            {userInitials}
           </div>
           <div className="hidden xl:block text-left text-xs">
-            <p className="font-semibold text-slate-800 dark:text-slate-200 leading-tight">Admin Portal</p>
-            <p className="text-[11px] text-slate-500 dark:text-slate-400">Principal / Accountant</p>
+            <p className="font-semibold text-slate-800 dark:text-slate-200 leading-tight">
+              {user?.fullName?.split(" ")[0] || "Admin"}
+            </p>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400">
+              {isTeacher
+                ? user?.isClassTeacher
+                  ? `${user.assignedClass} Teacher`
+                  : "Faculty"
+                : "Principal / Admin"}
+            </p>
           </div>
-        </div>
+        </Link>
       </div>
     </header>
   );
