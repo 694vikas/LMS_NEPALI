@@ -29,8 +29,8 @@ A localized School Management & Learning Management Platform developed with **Ne
   * Class teachers can take today's attendance directly from their dashboard with 1-click *Mark All Present*.
 * **My Class Students Roster**:
   * Direct access to class student details, emergency guardian phones (`tel:` link), and blood groups.
-* **Fast Study Material Uploader**:
-  * Modal form pre-filled with the teacher's class and subject to instantly publish notes or model sets.
+* **Direct PDF / Question Paper File Uploader**:
+  * Modal form with integrated drag-and-drop or browse file uploader (`FileUploadInput`) to directly upload PDFs, model question sets, and chapter notes to the server (`/public/uploads/materials/`).
 
 ### 3. 👥 Class-Based Student Dashboard (`/students`)
 * **Class & Section Filtering**: Quick filter by grade (`Class 10 (SEE)`, `Class 9`, `Class 8`, etc.) and section (`A`, `B`, `C`).
@@ -60,7 +60,8 @@ A localized School Management & Learning Management Platform developed with **Ne
   * Official school announcements, festival holiday alerts (Dashain, Tihar, Chhath), exam schedules, and sports events.
   * Category filters (`Notice`, `Holiday`, `Exam`, `Event`) and pinned priority announcements.
 * **Study Materials & Question Bank (अध्ययन सामग्री)**:
-  * Class and subject-wise notes, CDC syllabus materials, and past SEE question papers with download links.
+  * Class and subject-wise notes, CDC syllabus materials, and past SEE question papers.
+  * Real file upload capability supporting PDFs and documents (up to 25MB) with automatic file preview and download links. Includes a pre-loaded sample SEE Model Mathematics Question Paper 2081 PDF.
 
 ### 8. 🌙 Dark & Light Theme & Collapsible Icon Sidebar
 * Seamless toggle between dark and light themes with a Sun/Moon icon in the navigation bar.
