@@ -5,7 +5,6 @@ import { useSearchParams } from "next/navigation";
 import {
   Users,
   Search,
-  Filter,
   Plus,
   Phone,
   MapPin,
@@ -139,11 +138,11 @@ function StudentsContent() {
       {/* Header with Title and Add Button */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
-            <Users className="w-6 h-6 text-rose-600" />
+          <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+            <Users className="w-6 h-6 text-rose-600 dark:text-rose-400" />
             Class-Based Student Dashboard (कक्षागत विद्यार्थी सूची)
           </h1>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             Filter, search and monitor student academic records and fee clearance status.
           </p>
         </div>
@@ -158,16 +157,16 @@ function StudentsContent() {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-white rounded-xl p-4 border border-slate-200 shadow-sm space-y-4">
+      <div className="bg-white dark:bg-slate-900 rounded-xl p-4 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
         {/* Class Pills */}
         <div className="flex items-center gap-2 overflow-x-auto pb-1 text-xs">
-          <span className="font-semibold text-slate-500 shrink-0">Class:</span>
+          <span className="font-semibold text-slate-500 dark:text-slate-400 shrink-0">Class:</span>
           <button
             onClick={() => setSelectedClass("All")}
             className={`px-3 py-1.5 rounded-lg font-medium shrink-0 transition-all ${
               selectedClass === "All"
-                ? "bg-slate-900 text-white"
-                : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                ? "bg-slate-900 dark:bg-rose-600 text-white shadow-sm"
+                : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
             }`}
           >
             All Classes
@@ -179,7 +178,7 @@ function StudentsContent() {
               className={`px-3 py-1.5 rounded-lg font-medium shrink-0 transition-all ${
                 selectedClass === cls
                   ? "bg-rose-600 text-white shadow-sm"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                  : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
               }`}
             >
               {cls}
@@ -188,7 +187,7 @@ function StudentsContent() {
         </div>
 
         {/* Filters Row: Section, Fee Status, and Search */}
-        <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 pt-2 border-t border-slate-100">
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 pt-2 border-t border-slate-100 dark:border-slate-800">
           {/* Search Box */}
           <div className="sm:col-span-2 relative">
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
@@ -197,7 +196,7 @@ function StudentsContent() {
               placeholder="Search by student name, roll number, or guardian..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-3 py-1.5 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500 bg-slate-50/50"
+              className="w-full pl-9 pr-3 py-1.5 text-xs rounded-lg border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-500 bg-slate-50/50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500"
             />
           </div>
 
@@ -206,7 +205,7 @@ function StudentsContent() {
             <select
               value={selectedSection}
               onChange={(e) => setSelectedSection(e.target.value)}
-              className="w-full py-1.5 px-3 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-rose-500 bg-slate-50/50 text-slate-700"
+              className="w-full py-1.5 px-3 text-xs rounded-lg border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-500 bg-slate-50/50 dark:bg-slate-800 text-slate-700 dark:text-slate-200"
             >
               <option value="All">All Sections (A, B, C)</option>
               {SECTIONS.map((sec) => (
@@ -222,7 +221,7 @@ function StudentsContent() {
             <select
               value={selectedFeeStatus}
               onChange={(e) => setSelectedFeeStatus(e.target.value)}
-              className="w-full py-1.5 px-3 text-xs rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-rose-500 bg-slate-50/50 text-slate-700"
+              className="w-full py-1.5 px-3 text-xs rounded-lg border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-500 bg-slate-50/50 dark:bg-slate-800 text-slate-700 dark:text-slate-200"
             >
               <option value="All">All Fee Statuses</option>
               <option value="Paid">Paid Only (सम्पन्न)</option>
@@ -234,10 +233,10 @@ function StudentsContent() {
       </div>
 
       {/* Roster Table */}
-      <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-        <div className="px-5 py-3 border-b border-slate-100 flex items-center justify-between text-xs text-slate-500">
+      <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+        <div className="px-5 py-3 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
           <span>
-            Showing <strong className="text-slate-800">{students.length}</strong> students{" "}
+            Showing <strong className="text-slate-800 dark:text-slate-100">{students.length}</strong> students{" "}
             {selectedClass !== "All" && `in ${selectedClass}`}
             {selectedSection !== "All" && ` (Section ${selectedSection})`}
           </span>
@@ -249,7 +248,7 @@ function StudentsContent() {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
-              <tr className="bg-slate-50/80 border-b border-slate-200 text-slate-600 font-semibold uppercase tracking-wider text-[11px]">
+              <tr className="bg-slate-50/80 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 font-semibold uppercase tracking-wider text-[11px]">
                 <th className="py-3 px-4">Roll</th>
                 <th className="py-3 px-4">Student Details</th>
                 <th className="py-3 px-4">Class & Sec</th>
@@ -260,16 +259,16 @@ function StudentsContent() {
                 <th className="py-3 px-4 text-center">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
               {loading ? (
                 <tr>
-                  <td colSpan={8} className="py-12 text-center text-slate-400">
+                  <td colSpan={8} className="py-12 text-center text-slate-400 dark:text-slate-500">
                     Loading student records...
                   </td>
                 </tr>
               ) : students.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="py-12 text-center text-slate-400">
+                  <td colSpan={8} className="py-12 text-center text-slate-400 dark:text-slate-500">
                     No students found matching your filters.
                   </td>
                 </tr>
@@ -277,11 +276,11 @@ function StudentsContent() {
                 students.map((student) => (
                   <tr
                     key={student._id}
-                    className="hover:bg-slate-50/80 transition-colors group"
+                    className="hover:bg-slate-50/80 dark:hover:bg-slate-800/50 transition-colors group"
                   >
                     {/* Roll No */}
-                    <td className="py-3 px-4 font-bold text-slate-800">
-                      <span className="w-7 h-7 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center">
+                    <td className="py-3 px-4 font-bold text-slate-800 dark:text-slate-200">
+                      <span className="w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center">
                         {student.rollNo}
                       </span>
                     </td>
@@ -289,7 +288,7 @@ function StudentsContent() {
                     {/* Student Name */}
                     <td className="py-3 px-4">
                       <div>
-                        <div className="font-semibold text-slate-900 flex items-center gap-1.5">
+                        <div className="font-semibold text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
                           {student.fullName}
                           {student.nepaliName && (
                             <span className="text-slate-400 font-normal text-[11px]">
@@ -297,7 +296,7 @@ function StudentsContent() {
                             </span>
                           )}
                         </div>
-                        <p className="text-[11px] text-slate-400 font-mono mt-0.5">
+                        <p className="text-[11px] text-slate-400 dark:text-slate-500 font-mono mt-0.5">
                           {student.studentId} • {student.gender}
                         </p>
                       </div>
@@ -305,17 +304,17 @@ function StudentsContent() {
 
                     {/* Class & Section */}
                     <td className="py-3 px-4">
-                      <span className="inline-flex items-center px-2 py-0.5 rounded font-medium bg-slate-100 text-slate-700">
+                      <span className="inline-flex items-center px-2 py-0.5 rounded font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
                         {student.className} - {student.section}
                       </span>
                     </td>
 
                     {/* Guardian Contact */}
                     <td className="py-3 px-4">
-                      <div className="text-slate-800 font-medium">
+                      <div className="text-slate-800 dark:text-slate-200 font-medium">
                         {student.guardianName}
                       </div>
-                      <div className="text-slate-500 text-[11px] flex items-center gap-1 mt-0.5">
+                      <div className="text-slate-500 dark:text-slate-400 text-[11px] flex items-center gap-1 mt-0.5">
                         <Phone className="w-3 h-3 text-slate-400" />
                         <span>{student.guardianPhone}</span>
                       </div>
@@ -323,7 +322,7 @@ function StudentsContent() {
 
                     {/* Address */}
                     <td className="py-3 px-4">
-                      <div className="text-slate-600 flex items-center gap-1 text-[11px]">
+                      <div className="text-slate-600 dark:text-slate-300 flex items-center gap-1 text-[11px]">
                         <MapPin className="w-3 h-3 text-slate-400 shrink-0" />
                         <span className="truncate max-w-[150px]">{student.address}</span>
                       </div>
@@ -332,19 +331,19 @@ function StudentsContent() {
                     {/* Fee Status Badge */}
                     <td className="py-3 px-4">
                       {student.feeStatus === "Paid" && (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
                           <CheckCircle2 className="w-3 h-3" />
                           Paid
                         </span>
                       )}
                       {student.feeStatus === "Pending" && (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-rose-100 text-rose-800 border border-rose-200">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-rose-100 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800">
                           <AlertCircle className="w-3 h-3" />
                           Unpaid
                         </span>
                       )}
                       {student.feeStatus === "Partial" && (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-amber-100 text-amber-800 border border-amber-200">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
                           <Clock className="w-3 h-3" />
                           Partial
                         </span>
@@ -354,11 +353,11 @@ function StudentsContent() {
                     {/* Outstanding Due */}
                     <td className="py-3 px-4 text-right font-medium">
                       {student.outstandingDue > 0 ? (
-                        <span className="text-rose-600 font-bold">
+                        <span className="text-rose-600 dark:text-rose-400 font-bold">
                           रु {student.outstandingDue.toLocaleString("en-IN")}
                         </span>
                       ) : (
-                        <span className="text-emerald-600 font-medium">रु ०</span>
+                        <span className="text-emerald-600 dark:text-emerald-400 font-medium">रु ०</span>
                       )}
                     </td>
 
@@ -367,14 +366,14 @@ function StudentsContent() {
                       <div className="flex items-center justify-center gap-1.5">
                         <button
                           onClick={() => setActiveStudent(student)}
-                          className="p-1.5 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition-colors"
+                          className="p-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                           title="View Student Dossier"
                         >
                           <Eye className="w-4 h-4" />
                         </button>
                         <a
                           href={`/fees?search=${encodeURIComponent(student.fullName)}`}
-                          className="p-1.5 rounded-lg text-rose-600 hover:text-rose-800 hover:bg-rose-50 transition-colors"
+                          className="p-1.5 rounded-lg text-rose-600 dark:text-rose-400 hover:text-rose-800 dark:hover:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-950/50 transition-colors"
                           title="Manage Fee"
                         >
                           <CreditCard className="w-4 h-4" />
@@ -391,67 +390,67 @@ function StudentsContent() {
 
       {/* Student Detail Modal */}
       {activeStudent && (
-        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-xl relative animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-lg w-full p-6 shadow-xl relative animate-in fade-in duration-200">
             <button
               onClick={() => setActiveStudent(null)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1 rounded-lg"
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1 rounded-lg"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
+            <div className="flex items-center gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
               <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-rose-500 to-indigo-600 text-white flex items-center justify-center font-bold text-lg shadow">
                 {activeStudent.fullName.charAt(0)}
               </div>
               <div>
-                <h3 className="font-bold text-lg text-slate-900">
+                <h3 className="font-bold text-lg text-slate-900 dark:text-slate-100">
                   {activeStudent.fullName}
                 </h3>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   {activeStudent.studentId} • Roll: {activeStudent.rollNo} • {activeStudent.className} ({activeStudent.section})
                 </p>
               </div>
             </div>
 
             <div className="mt-4 grid grid-cols-2 gap-3 text-xs">
-              <div className="p-3 bg-slate-50 rounded-lg">
-                <span className="text-slate-400 font-medium block">Guardian</span>
-                <span className="font-semibold text-slate-800 text-sm mt-0.5 block">
+              <div className="p-3 bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 rounded-lg">
+                <span className="text-slate-400 dark:text-slate-500 font-medium block">Guardian</span>
+                <span className="font-semibold text-slate-800 dark:text-slate-100 text-sm mt-0.5 block">
                   {activeStudent.guardianName}
                 </span>
-                <span className="text-slate-500">{activeStudent.guardianPhone}</span>
+                <span className="text-slate-500 dark:text-slate-400">{activeStudent.guardianPhone}</span>
               </div>
 
-              <div className="p-3 bg-slate-50 rounded-lg">
-                <span className="text-slate-400 font-medium block">Address</span>
-                <span className="font-semibold text-slate-800 text-sm mt-0.5 block">
+              <div className="p-3 bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 rounded-lg">
+                <span className="text-slate-400 dark:text-slate-500 font-medium block">Address</span>
+                <span className="font-semibold text-slate-800 dark:text-slate-100 text-sm mt-0.5 block">
                   {activeStudent.address}
                 </span>
-                <span className="text-slate-500">Nepal</span>
+                <span className="text-slate-500 dark:text-slate-400">Nepal</span>
               </div>
 
-              <div className="p-3 bg-slate-50 rounded-lg">
-                <span className="text-slate-400 font-medium block">Date of Birth</span>
-                <span className="font-semibold text-slate-800 text-sm mt-0.5 block">
+              <div className="p-3 bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 rounded-lg">
+                <span className="text-slate-400 dark:text-slate-500 font-medium block">Date of Birth</span>
+                <span className="font-semibold text-slate-800 dark:text-slate-100 text-sm mt-0.5 block">
                   {activeStudent.dateOfBirthBS || "2068 B.S."}
                 </span>
-                <span className="text-slate-500">Blood: {activeStudent.bloodGroup || "O+ve"}</span>
+                <span className="text-slate-500 dark:text-slate-400">Blood: {activeStudent.bloodGroup || "O+ve"}</span>
               </div>
 
-              <div className="p-3 bg-slate-50 rounded-lg">
-                <span className="text-slate-400 font-medium block">Fee Balance</span>
-                <span className="font-bold text-rose-600 text-sm mt-0.5 block">
+              <div className="p-3 bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 rounded-lg">
+                <span className="text-slate-400 dark:text-slate-500 font-medium block">Fee Balance</span>
+                <span className="font-bold text-rose-600 dark:text-rose-400 text-sm mt-0.5 block">
                   रु {activeStudent.outstandingDue.toLocaleString("en-IN")}
                 </span>
-                <span className="text-slate-500">Status: {activeStudent.feeStatus}</span>
+                <span className="text-slate-500 dark:text-slate-400">Status: {activeStudent.feeStatus}</span>
               </div>
             </div>
 
             <div className="mt-6 flex justify-end gap-2">
               <button
                 onClick={() => setActiveStudent(null)}
-                className="px-4 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 rounded-lg"
+                className="px-4 py-2 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
               >
                 Close
               </button>
@@ -469,24 +468,24 @@ function StudentsContent() {
 
       {/* Add Student Modal */}
       {showAddModal && (
-        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-xl relative max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-lg w-full p-6 shadow-xl relative max-h-[90vh] overflow-y-auto">
             <button
               onClick={() => setShowAddModal(false)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1"
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <h3 className="font-bold text-lg text-slate-900 border-b border-slate-100 pb-3 flex items-center gap-2">
-              <GraduationCap className="w-5 h-5 text-rose-600" />
+            <h3 className="font-bold text-lg text-slate-900 dark:text-slate-100 border-b border-slate-100 dark:border-slate-800 pb-3 flex items-center gap-2">
+              <GraduationCap className="w-5 h-5 text-rose-600 dark:text-rose-400" />
               New Student Admission (नयाँ भर्ना)
             </h3>
 
             <form onSubmit={handleCreateStudent} className="mt-4 space-y-3 text-xs">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="font-semibold text-slate-700 block mb-1">
+                  <label className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">
                     Full Name (English) *
                   </label>
                   <input
@@ -497,11 +496,11 @@ function StudentsContent() {
                     onChange={(e) =>
                       setFormData({ ...formData, fullName: e.target.value })
                     }
-                    className="w-full p-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-rose-500"
+                    className="w-full p-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-rose-500"
                   />
                 </div>
                 <div>
-                  <label className="font-semibold text-slate-700 block mb-1">
+                  <label className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">
                     Nepali Name (नेपाली नाम)
                   </label>
                   <input
@@ -511,14 +510,14 @@ function StudentsContent() {
                     onChange={(e) =>
                       setFormData({ ...formData, nepaliName: e.target.value })
                     }
-                    className="w-full p-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-rose-500"
+                    className="w-full p-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-rose-500"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <label className="font-semibold text-slate-700 block mb-1">
+                  <label className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">
                     Class *
                   </label>
                   <select
@@ -526,7 +525,7 @@ function StudentsContent() {
                     onChange={(e) =>
                       setFormData({ ...formData, className: e.target.value })
                     }
-                    className="w-full p-2 border border-slate-200 rounded-lg"
+                    className="w-full p-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100"
                   >
                     {CLASSES.map((cls) => (
                       <option key={cls} value={cls}>
@@ -536,7 +535,7 @@ function StudentsContent() {
                   </select>
                 </div>
                 <div>
-                  <label className="font-semibold text-slate-700 block mb-1">
+                  <label className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">
                     Section *
                   </label>
                   <select
@@ -544,7 +543,7 @@ function StudentsContent() {
                     onChange={(e) =>
                       setFormData({ ...formData, section: e.target.value })
                     }
-                    className="w-full p-2 border border-slate-200 rounded-lg"
+                    className="w-full p-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100"
                   >
                     {SECTIONS.map((s) => (
                       <option key={s} value={s}>
@@ -554,7 +553,7 @@ function StudentsContent() {
                   </select>
                 </div>
                 <div>
-                  <label className="font-semibold text-slate-700 block mb-1">
+                  <label className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">
                     Roll No *
                   </label>
                   <input
@@ -565,14 +564,14 @@ function StudentsContent() {
                     onChange={(e) =>
                       setFormData({ ...formData, rollNo: Number(e.target.value) })
                     }
-                    className="w-full p-2 border border-slate-200 rounded-lg"
+                    className="w-full p-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="font-semibold text-slate-700 block mb-1">
+                  <label className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">
                     Guardian Name *
                   </label>
                   <input
@@ -583,11 +582,11 @@ function StudentsContent() {
                     onChange={(e) =>
                       setFormData({ ...formData, guardianName: e.target.value })
                     }
-                    className="w-full p-2 border border-slate-200 rounded-lg"
+                    className="w-full p-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100"
                   />
                 </div>
                 <div>
-                  <label className="font-semibold text-slate-700 block mb-1">
+                  <label className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">
                     Guardian Phone *
                   </label>
                   <input
@@ -598,13 +597,13 @@ function StudentsContent() {
                     onChange={(e) =>
                       setFormData({ ...formData, guardianPhone: e.target.value })
                     }
-                    className="w-full p-2 border border-slate-200 rounded-lg"
+                    className="w-full p-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="font-semibold text-slate-700 block mb-1">
+                <label className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">
                   Address (Municipality/Ward) *
                 </label>
                 <input
@@ -615,13 +614,13 @@ function StudentsContent() {
                   onChange={(e) =>
                     setFormData({ ...formData, address: e.target.value })
                   }
-                  className="w-full p-2 border border-slate-200 rounded-lg"
+                  className="w-full p-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="font-semibold text-slate-700 block mb-1">
+                  <label className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">
                     Gender *
                   </label>
                   <select
@@ -629,7 +628,7 @@ function StudentsContent() {
                     onChange={(e) =>
                       setFormData({ ...formData, gender: e.target.value })
                     }
-                    className="w-full p-2 border border-slate-200 rounded-lg"
+                    className="w-full p-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100"
                   >
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
@@ -637,7 +636,7 @@ function StudentsContent() {
                   </select>
                 </div>
                 <div>
-                  <label className="font-semibold text-slate-700 block mb-1">
+                  <label className="font-semibold text-slate-700 dark:text-slate-300 block mb-1">
                     Blood Group
                   </label>
                   <select
@@ -645,7 +644,7 @@ function StudentsContent() {
                     onChange={(e) =>
                       setFormData({ ...formData, bloodGroup: e.target.value })
                     }
-                    className="w-full p-2 border border-slate-200 rounded-lg"
+                    className="w-full p-2 border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100"
                   >
                     <option value="A+ve">A+ve</option>
                     <option value="B+ve">B+ve</option>
@@ -658,11 +657,11 @@ function StudentsContent() {
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-slate-100 flex justify-end gap-2">
+              <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-end gap-2">
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="px-4 py-2 font-medium text-slate-600 hover:bg-slate-100 rounded-lg"
+                  className="px-4 py-2 font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
                 >
                   Cancel
                 </button>
@@ -695,4 +694,3 @@ export default function StudentsPage() {
     </Suspense>
   );
 }
-
