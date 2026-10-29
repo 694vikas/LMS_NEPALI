@@ -3,6 +3,9 @@ import { connectDB } from "@/lib/mongodb";
 import { Student } from "@/models/Student";
 import { Teacher } from "@/models/Teacher";
 import { FeeInvoice } from "@/models/FeeInvoice";
+import { Notice } from "@/models/Notice";
+import { StudyMaterial } from "@/models/StudyMaterial";
+import { Attendance } from "@/models/Attendance";
 
 export async function POST() {
   try {
@@ -12,6 +15,9 @@ export async function POST() {
     await Student.deleteMany({});
     await Teacher.deleteMany({});
     await FeeInvoice.deleteMany({});
+    await Notice.deleteMany({});
+    await StudyMaterial.deleteMany({});
+    await Attendance.deleteMany({});
 
     // Sample Teachers
     const teachersData = [
@@ -350,6 +356,114 @@ export async function POST() {
 
     const insertedInvoices = await FeeInvoice.insertMany(invoicesData);
 
+    // Sample Notices
+    const noticesData = [
+      {
+        title: "शुभ दिपावली तथा छठ पर्व २०८१ को पावन अवसरमा विदा सम्बन्धी सूचना",
+        content:
+          "सम्पूर्ण अभिभावक तथा विद्यार्थी वर्गमा जानकारी गराइन्छ कि नेपालीहरूको महान चाड तिहार तथा छठ पर्वको उपलक्ष्यमा मिति २०८१ कार्तिक १५ गतेदेखि कार्तिक २२ गतेसम्म विद्यालय बन्द रहनेछ। पुन: मिति २०८१ कार्तिक २३ गते शुक्रबारदेखि नियमित कक्षा सञ्चालन हुनेछ।",
+        category: "Holiday",
+        priority: "High",
+        targetAudience: "All Students & Guardians",
+        dateBS: "२०८१ कार्तिक १२",
+        author: "Principal - Rameshwor Adhikari",
+        isPinned: true,
+      },
+      {
+        title: "द्वितीय त्रैमासिक परीक्षा (Second Terminal Examination) २०८१ समय तालिका",
+        content:
+          "कक्षा १ देखि १० सम्मका सम्पूर्ण विद्यार्थीहरूको द्वितीय त्रैमासिक परीक्षा आगामी २०८१ मंसिर १६ गते आइतबारदेखि सञ्चालन हुने भएकोले सम्पूर्ण विषयगत तयारी गर्न सूचित गरिन्छ। परीक्षा सम्बन्धी शुल्क कार्तिक मसान्तभित्र बुझाउन अनुरोध छ।",
+        category: "Exam",
+        priority: "High",
+        targetAudience: "Class 1 to 10",
+        dateBS: "२०८१ कार्तिक १४",
+        author: "Examination Controller",
+        isPinned: true,
+      },
+      {
+        title: "कक्षा १० (SEE) को लागि अतिरिक्त गणित र विज्ञान कक्षा सञ्चालन बारे",
+        content:
+          "यस वर्षको SEE परीक्षालाई लक्षित गरी कक्षा १० का विद्यार्थीहरूका लागि बिहान ७:०० बजेदेखि ८:३० बजेसम्म अनिवार्य गणित र विज्ञान विषयको विशेष कोचिंग कक्षा सञ्चालन हुनेछ।",
+        category: "Notice",
+        priority: "Normal",
+        targetAudience: "Class 10 (SEE)",
+        dateBS: "२०८१ कार्तिक ०५",
+        author: "Academic Coordinator",
+        isPinned: false,
+      },
+    ];
+    const insertedNotices = await Notice.insertMany(noticesData);
+
+    // Sample Study Materials
+    const materialsData = [
+      {
+        title: "Class 10 SEE Compulsory Mathematics - Formula Sheet & CDC Model Sets 2081",
+        description:
+          "Complete compilation of Mensuration, Geometry, Algebra, and Statistics formulas along with CDC new curriculum sample questions.",
+        className: "Class 10 (SEE)",
+        subject: "Compulsory Mathematics",
+        fileType: "PDF",
+        fileUrl: "https://moecdc.gov.np/storage/files/10-Math-Model-2081.pdf",
+        uploadedBy: "Ramesh Bhattarai (HOD Math)",
+        downloadsCount: 142,
+      },
+      {
+        title: "Class 10 Science - Unit 1 to 5 Quick Revision Notes (Physics & Chemistry)",
+        description:
+          "Force, Pressure, Energy, Heat, and Chemical Reactions summarized with important numerical equations.",
+        className: "Class 10 (SEE)",
+        subject: "Science & Environment",
+        fileType: "PDF",
+        fileUrl: "https://moecdc.gov.np/storage/files/10-Science-Revision-2081.pdf",
+        uploadedBy: "Sarita K.C. (Science Faculty)",
+        downloadsCount: 98,
+      },
+      {
+        title: "Class 9 Social Studies - Unit 3: Our Constitution & Civic Sense (नागरिक चेतना)",
+        description:
+          "Comprehensive notes on Constitutional Organs of Nepal and fundamental human rights.",
+        className: "Class 9",
+        subject: "Social Studies",
+        fileType: "Document",
+        fileUrl: "https://moecdc.gov.np/storage/files/9-Social-Notes.pdf",
+        uploadedBy: "Hari Prasad Dahal",
+        downloadsCount: 65,
+      },
+      {
+        title: "Class 8 Computer Science - Basics of QBASIC Programming & Flowcharts",
+        description:
+          "Introductory control statements (IF-THEN, FOR-NEXT) with algorithm problem-solving samples.",
+        className: "Class 8",
+        subject: "Computer Science",
+        fileType: "PDF",
+        fileUrl: "https://moecdc.gov.np/storage/files/8-Computer-Qbasic.pdf",
+        uploadedBy: "Pradeep Shakya (IT Head)",
+        downloadsCount: 47,
+      },
+    ];
+    const insertedMaterials = await StudyMaterial.insertMany(materialsData);
+
+    // Sample Attendance for Class 10 - Section A
+    const class10Students = insertedStudents.filter(
+      (s) => s.className === "Class 10 (SEE)" && s.section === "A"
+    );
+    if (class10Students.length > 0) {
+      await Attendance.create({
+        dateBS: "2081-07-15",
+        dateAD: new Date(),
+        className: "Class 10 (SEE)",
+        section: "A",
+        takenBy: "Ramesh Prasad Bhattarai",
+        records: class10Students.map((std, idx) => ({
+          studentId: std.studentId,
+          rollNo: std.rollNo,
+          studentName: std.fullName,
+          status: idx === 2 ? "Absent" : idx === 3 ? "Leave" : "Present",
+          remarks: idx === 2 ? "Fever reported by parent" : "",
+        })),
+      });
+    }
+
     return NextResponse.json({
       success: true,
       message: "Nepali School LMS Seed Data successfully loaded!",
@@ -357,6 +471,8 @@ export async function POST() {
         teachersCount: insertedTeachers.length,
         studentsCount: insertedStudents.length,
         invoicesCount: insertedInvoices.length,
+        noticesCount: insertedNotices.length,
+        materialsCount: insertedMaterials.length,
       },
     });
   } catch (error: any) {

@@ -12,6 +12,8 @@ import {
   FileSpreadsheet,
   ChevronLeft,
   ChevronRight,
+  ClipboardCheck,
+  BellRing,
 } from "lucide-react";
 import { useUI } from "@/context/UIContext";
 
@@ -20,6 +22,8 @@ const navigation = [
   { name: "Students (कक्षा/विद्यार्थी)", shortName: "Students", href: "/students", icon: Users },
   { name: "Teachers (शिक्षक खण्ड)", shortName: "Teachers", href: "/teachers", icon: UserCheck },
   { name: "Fees & Dues (शुल्क लेखा)", shortName: "Fees", href: "/fees", icon: CreditCard },
+  { name: "Attendance (दैनिक हाजिरी)", shortName: "Attendance", href: "/attendance", icon: ClipboardCheck },
+  { name: "LMS & Notices (सूचना/सिकाइ)", shortName: "LMS", href: "/lms", icon: BellRing },
 ];
 
 export function Sidebar() {
