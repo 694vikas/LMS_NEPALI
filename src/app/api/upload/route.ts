@@ -26,22 +26,28 @@ export async function POST(request: NextRequest) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Ensure uploads directory exists
-    const uploadDir = path.join(process.cwd(), "public", "uploads", "materials");
-    await fs.mkdir(uploadDir, { recursive: true });
-
     // Clean filename and make unique with timestamp
     const cleanOriginalName = file.name.replace(/[^a-zA-Z0-9.-]/g, "_");
     const uniqueFilename = `${Date.now()}-${cleanOriginalName}`;
-    const filePath = path.join(uploadDir, uniqueFilename);
+    const ext = path.extname(file.name).toLowerCase();
 
-    await fs.writeFile(filePath, buffer);
-
-    const publicUrl = `/uploads/materials/${uniqueFilename}`;
+    let publicUrl = "";
+    try {
+      // Ensure uploads directory exists (for local or container environments)
+      const uploadDir = path.join(process.cwd(), "public", "uploads", "materials");
+      await fs.mkdir(uploadDir, { recursive: true });
+      const filePath = path.join(uploadDir, uniqueFilename);
+      await fs.writeFile(filePath, buffer);
+      publicUrl = `/uploads/materials/${uniqueFilename}`;
+    } catch (fsErr) {
+      // Serverless fallback (e.g. Vercel read-only filesystem)
+      console.warn("Filesystem read-only or restricted, using base64 Data URL fallback:", fsErr);
+      const mime = file.type || (ext === ".pdf" ? "application/pdf" : "application/octet-stream");
+      publicUrl = `data:${mime};base64,${buffer.toString("base64")}`;
+    }
 
     // Determine file type tag
     let fileType: "PDF" | "Document" | "Link" | "Video" = "Document";
-    const ext = path.extname(file.name).toLowerCase();
     if (ext === ".pdf") fileType = "PDF";
     else if ([".doc", ".docx", ".txt", ".rtf"].includes(ext)) fileType = "Document";
 
@@ -64,4 +70,3 @@ export async function POST(request: NextRequest) {
     );
   }
 }
-
